@@ -104,7 +104,7 @@ def sell_bad_slaves():
                         print(
                             f"id{slave['vk_user_id']} продан из-за невыгодности",
                         )
-                        sleep(min_delay, max_delay)
+                        sleep(uniform(min_delay, max_delay))
             else:
                 sleep(3.34)
         except Exception as e:
@@ -248,7 +248,7 @@ if __name__ == "__main__":
         """ВРабстве 3.0
 vk.com/free_slaves_bot
 github.com/monosans/vk-slaves3-bot
-Версия 20210410.3""",
+Версия 20210410.4""",
     )
     headers = {
         "Content-Type": "application/json",
