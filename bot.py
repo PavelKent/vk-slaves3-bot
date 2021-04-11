@@ -3,6 +3,7 @@
 from random import uniform
 from threading import Thread
 from time import sleep, strftime
+from traceback import print_exc
 
 from requests import get, post
 
@@ -87,8 +88,8 @@ def get_bonuses():
             get_bonus()
             print("Бонус получен")
             sleep(60 + uniform(0, 3.34))
-        except Exception as e:
-            print(e.args)
+        except:
+            print_exc()
             sleep(3.34)
 
 
@@ -107,8 +108,8 @@ def sell_bad_slaves():
                         sleep(uniform(min_delay, max_delay))
             else:
                 sleep(3.34)
-        except Exception as e:
-            print(e.args)
+        except:
+            print_exc()
             sleep(3.34)
 
 
@@ -128,15 +129,15 @@ def buy_top_users_slaves():
                                     and slave["price"] >= min_price
                                 ):
                                     get_bonus()
-                                    buy_slave_info = get_buy_slave(
-                                        slave["vk_user_id"],
-                                    )
-                                    if "user" in buy_slave_info.keys():
-                                        if check_was_in_app == 0:
-                                            was_in_app = True
-                                        else:
-                                            was_in_app = slave["was_in_app"]
-                                        if was_in_app:
+                                    if check_was_in_app == 0:
+                                        was_in_app = True
+                                    else:
+                                        was_in_app = slave["was_in_app"]
+                                    if was_in_app:
+                                        buy_slave_info = get_buy_slave(
+                                            slave["vk_user_id"],
+                                        )
+                                        if "user" in buy_slave_info.keys():
                                             profile = buy_slave_info["user"]
                                             print(
                                                 f"""[{strftime('%H:%M:%S')}]
@@ -164,8 +165,8 @@ def buy_top_users_slaves():
                         sleep(3.34)
             else:
                 sleep(3.34)
-        except Exception as e:
-            print(e.args)
+        except:
+            print_exc()
             sleep(3.34)
 
 
@@ -183,15 +184,15 @@ def buy_slaves_from_ids():
                                 and slave["price"] >= min_price
                             ):
                                 get_bonus()
-                                buy_slave_info = get_buy_slave(
-                                    slave["vk_user_id"],
-                                )
-                                if "user" in buy_slave_info.keys():
-                                    if check_was_in_app == 0:
-                                        was_in_app = True
-                                    else:
-                                        was_in_app = slave["was_in_app"]
-                                    if was_in_app:
+                                if check_was_in_app == 0:
+                                    was_in_app = True
+                                else:
+                                    was_in_app = slave["was_in_app"]
+                                if was_in_app:
+                                    buy_slave_info = get_buy_slave(
+                                        slave["vk_user_id"],
+                                    )
+                                    if "user" in buy_slave_info.keys():
                                         profile = buy_slave_info["user"]
                                         print(
                                             f"""[{strftime('%H:%M:%S')}]
@@ -213,8 +214,8 @@ def buy_slaves_from_ids():
                                     sleep(3.34)
                 else:
                     sleep(3.34)
-        except Exception as e:
-            print(e.args)
+        except:
+            print_exc()
             sleep(3.34)
 
 
@@ -238,8 +239,8 @@ def buy_fetters():
                     sleep(3.34)
             else:
                 sleep(3.34)
-        except Exception as e:
-            print(e.args)
+        except:
+            print_exc()
             sleep(3.34)
 
 
@@ -248,7 +249,7 @@ if __name__ == "__main__":
         """ВРабстве 3.0
 vk.com/free_slaves_bot
 github.com/monosans/vk-slaves3-bot
-Версия 20210410.4""",
+Версия 20210411""",
     )
     headers = {
         "Content-Type": "application/json",
@@ -274,6 +275,6 @@ github.com/monosans/vk-slaves3-bot
         Thread(target=get_bonuses).start()
         Thread(target=buy_fetters).start()
     if check_was_in_app == 0:
-        print("Проверка рабов на выгодность отключена")
+        print("Отключена проверка рабов на выгодность")
     else:
-        print("Проверка рабов на выгодность включена")
+        print("Включена проверка рабов на выгодность")
